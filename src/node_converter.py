@@ -1,5 +1,4 @@
 from textnode import TextNode, TextType
-from htmlnode import LeafNode
 import re
 
 def text_to_textnodes(text):
@@ -10,23 +9,7 @@ def text_to_textnodes(text):
     nodes = split_nodes_image(nodes)
     nodes = split_nodes_link(nodes)
     return nodes
-
-def text_node_to_html_node (text_node):
-    if text_node.text_type == TextType.TEXT:
-        return LeafNode(None, text_node.text)
-    if text_node.text_type == TextType.BOLD:
-        return LeafNode("b", text_node.text)
-    if text_node.text_type == TextType.ITALIC:
-        return LeafNode("i", text_node.text)
-    if text_node.text_type == TextType.CODE:
-        return LeafNode("code", text_node.text)
-    if text_node.text_type == TextType.LINK:
-        return LeafNode("a", text_node.text, {"href": text_node.url})
-    if text_node.text_type == TextType.IMAGE:
-        return LeafNode("img", "", {"src": text_node.url, "alt": text_node.text})
-    else:
-        raise ValueError(f"Invalid text type: {text_node.text_type}")
-    
+ 
 def split_nodes_delimiter (old_nodes, delimiter, text_type):
     new_nodes = []
     for old_node in old_nodes:
@@ -108,3 +91,5 @@ def split_nodes_link(old_nodes):
         if original_text != "":
             new_nodes.append(TextNode(original_text, TextType.TEXT))
     return new_nodes
+
+
